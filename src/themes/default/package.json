@@ -1,0 +1,26 @@
+{
+  "name": "default-theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arylo <arylo.open@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "coffee-script": "^1.10.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-cli": "^1.2.2",
+    "gulp-csso": "^2.0.0",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.5.0",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-watch": "^4.3.9",
+    "yargs": "^4.8.1"
+  }
+}

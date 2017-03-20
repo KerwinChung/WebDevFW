@@ -1,0 +1,135 @@
+#!/usr/bin/env groovy
+
+def _nodeBlock(Closure body=null) {
+  def STATUS = 'UNSTABLE'
+  try {
+    if (body) { body() }
+    if (STATUS == 'UNSTABLE') {
+        STATUS = 'SUCCESS'
+    }
+  } catch(InterruptedException ie) {
+    STATUS = 'ABORTED'
+    throw e
+  } catch(e) {
+    STATUS = 'FAILURE'
+    throw e
+  }
+  finally {
+    step([$class: 'WsCleanup'])
+  }
+  echo "Result: ${STATUS}"
+  return STATUS
+}
+
+def checkTools() {
+  stage('Check Tools') {
+    for (item in [ 'npm', 'node', 'yarn', 'gulp', 'bower' ]) {
+      sh "${item} --version || exit 1"
+    }
+  }
+}
+
+def initEnv() {
+  stage('Init Env') { timeout(30) {
+
+    def code = 0
+
+    sh(
+      returnStatus: true,
+      script: 'npm set registry http://npm.dapigu.win'
+    )
+    // NPM Module Install
+    sh(
+      returnStatus: true,
+      script: 'yarn'
+    )
+    code = sh(
+      returnStatus: true,
+      script: 'npm install || npm rebuild'
+    )
+    if (code != 0) {
+        STATUS = 'FAILURE'
+        echo "${STATUS}: Modules Install Fail"
+        return STATUS
+    }
+    // Bower Module Install
+    // retry(3) { sh(
+    //   returnStatus: true,
+    //   script: 'bower install'
+    // ) }
+    // currentBuild.result = 'SUCCESS'
+
+    return true
+  } }
+}
+
+def test() {
+
+  def code = 0
+
+  stage('Test') { timeout(20) {
+    code = sh(
+      returnStatus: true,
+      script: 'gulp lint'
+    )
+    if (code != 0) {
+        STATUS = 'FAILURE'
+        echo "${STATUS}: Check Code Style Fail"
+        return STATUS
+    }
+    code = sh(
+      returnStatus: true,
+      script: 'gulp test'
+    )
+    if (code != 0) {
+        STATUS = 'FAILURE'
+        echo "${STATUS}: Code Test Fail"
+        return STATUS
+    }
+    code = sh(
+      returnStatus: true,
+      script: 'gulp test -t ray'
+    )
+    if (code != 0) {
+        STATUS = 'FAILURE'
+        echo "${STATUS}: Code Test Fail"
+        return STATUS
+    }
+    return STATUS
+  } }
+}
+
+def merge() { _nodeBlock {
+  checkTools()
+  if (initEnv() == true) {
+    return test()
+  } else {
+    return STATUS
+  }
+} }
+
+def push() { _nodeBlock {
+  checkTools()
+  initEnv()
+  test()
+
+  stage('Build') {
+    def code = 0
+    code = sh(
+      returnStatus: true,
+      script: 'gulp deploy || gulp'
+    )
+    if (code != 0) { STATUS = 'FAILURE' }
+  }
+
+  stage('Build by Ray Edition') {
+    def code = 0
+    code = sh(
+      returnStatus: true,
+      script: 'gulp deploy -t ray || gulp -t ray'
+    )
+    if (code != 0) { STATUS = 'FAILURE' }
+  }
+} }
+
+return this

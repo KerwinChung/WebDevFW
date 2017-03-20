@@ -1,0 +1,18 @@
+## System Cache File
+.DS_Store
+Thumbs.db
+
+## IDE Cache
+.idea
+
+## Cache Folder
+bower_components/
+node_modules/
+build/
+dist/
+test/.tmp/
+test/reports/
+npm-debug.log
+
+## Custom Config Folder
+custom/

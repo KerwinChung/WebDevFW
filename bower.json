@@ -1,0 +1,37 @@
+{
+  "name": "pandorabox_lafite_angular",
+  "description": "",
+  "main": "gulp",
+  "authors": [
+    "AryloYeung <arylo@xcloud.cc>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "pandorabox",
+    "lintel",
+    "luci",
+    "openwrt"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "1.5.6"
+  },
+  "dependencies": {
+    "angular": "1.5.6",
+    "angular-animate": "1.5.6",
+    "angular-route": "1.5.6",
+    "html5shiv": "^3.7.3",
+    "json2": "031b1d9e69",
+    "angular-messages": "1.5.6",
+    "angular-translate": "2.11.0",
+    "angular-translate-loader-partial": "2.11.0",
+    "scriptjs": "^2.5.8"
+  }
+}

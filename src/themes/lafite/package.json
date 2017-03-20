@@ -1,0 +1,34 @@
+{
+  "name": "lafite",
+  "version": "0.1.0",
+  "description": "this is a style",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-csscomb": "^3.0.7",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-stylus": "^2.5.0"
+  },
+  "devDependencies": {
+    "gulp-connect": "^4.1.0",
+    "gulp-livereload": "^3.8.1"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.pbr.link/Lafite-Theme/lafite-style.git"
+  },
+  "keywords": [
+    "icplus"
+  ],
+  "author": "icplus",
+  "license": "ISC"
+}

@@ -1,0 +1,19 @@
+## System Cache File
+.DS_Store
+Thumbs.db
+
+## Cache Folder
+bower_components/
+node_modules/
+build/
+npm-debug.log
+
+## API Document
+docs/
+
+## Test Report
+test/reports/
+
+## IDE Cache
+.idea*
+.sublime*
